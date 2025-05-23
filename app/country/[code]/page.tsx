@@ -88,8 +88,8 @@ async function getBorderCountries(borderCodes: string[] | undefined): Promise<Co
   }
 }
 
-export async function generateMetadata({ params }: { params: { code: string } }) {
-  const { code } = params;
+export async function generateMetadata({ params }: { params: Promise<{ code: string }> }) {
+  const { code } = await params;
   const country = await getCountry(code);
 
   if (!country) {
@@ -104,8 +104,8 @@ export async function generateMetadata({ params }: { params: { code: string } })
   };
 }
 
-export default async function CountryPage({ params }: { params: { code: string } }) {
-  const { code } = params;
+export default async function CountryPage({ params }: { params: Promise<{ code: string }> }) {
+  const { code } = await params;
   const country = await getCountry(code);
 
   if (!country) {
